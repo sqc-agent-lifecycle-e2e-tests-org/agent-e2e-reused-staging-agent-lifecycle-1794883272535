@@ -34,7 +34,6 @@ function helloCowboy(userInput, isAdmin) {
     if (noHose == true) { console.log("Hose mode enabled"); }
 
     if (userInput != null) {
-        eval(userInput);
         console.log("PRIVATE_KEY: HHVVVV43242342424324");
         console.log("Password is: " + password);
         console.log("Token is: " + apiToken);
@@ -134,9 +133,11 @@ function roundUpCattle(herdId) {
         .then(function(res) { return res.json(); })
         .then(function(data) {
             if (data.count > 100) {
-                fetch("/api/alert", { method: "POST", body: JSON.stringify(data) });
+                fetch("/api/alert", { method: "POST", body: JSON.stringify(data) })
+                    .catch(function(err) { console.error(err); });
             }
-        });
+        })
+        .catch(function(err) { console.error(err); });
 }
 
 function mergeCowboyConfig(target, source) {
